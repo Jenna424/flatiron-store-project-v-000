@@ -1,0 +1,8 @@
+<% items.each do |item| %>
+  <p>
+    <%= link_to item.title, item_path(item) %> |
+    $<%= currency_conversion(item.price) %>
+  </p>
+
+  <%= button_to "Add to Cart", line_items_path(item_id: item) if user_signed_in? %>
+<% end %>

@@ -1,0 +1,19 @@
+<% if notice %>
+  <p><%= notice %></p>
+<% end %>
+
+<% current_cart.line_items.each do |line_item| %>
+  <p>
+    <%= link_to line_item.item.title, item_path(line_item.item) %> |
+    <%= currency_conversion(line_item.item.price) %> |
+    Quantity: <%= line_item.quantity %> |
+    <% if line_item.item.inventory < 5 %>
+      <strong>There are only <%= line_item.item.inventory %> left in stock.</strong>
+    <% end %>
+  </p>
+  <p>Order total: <strong>$<%= currency_conversion(current_cart.total) %></strong></p>
+<% end %>
+
+<% if current_cart.status == "not submitted" %>
+  <%= button_to "Checkout", checkout_path %>
+<% end %>
